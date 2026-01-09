@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+.next/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Build outputs
+dist/
+build/
+
+# Environment
+.env
+.env.local
