@@ -39,6 +39,16 @@ body {
   background: linear-gradient(180deg, #BD2000, #FA1E0E);
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Text gradient utility */
 .text-gradient {
   background: linear-gradient(135deg, #FA1E0E 0%, #BD2000 50%, #8C0000 100%);
