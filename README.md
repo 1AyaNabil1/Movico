@@ -120,7 +120,6 @@ This project is for academic and research purposes.
 - **Built by**: [AyaNexus](https://ayanexus.dev/) 🦢
 - **GitHub Repository**: [Movico](https://github.com/1AyaNabil1/Movico)
 - **Live Demo**: [Movico](https://swanexus.dev)
-- **Powered by**: Google Gemini AI
 
 ---
 
