@@ -3,37 +3,47 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+// Pipeline categories with hierarchy metadata
 const categories = [
   {
-    title: "Data Collection",
+    name: "Collection",
+    phase: 1,
+    emphasis: "quiet" as const,
+    description: "Survey distribution via Google Forms",
     tools: [
-      { name: "Google Forms", description: "Survey distribution and response collection" },
-    ],
+      { name: "Google Forms", isPrimary: true },
+    ]
   },
   {
-    title: "Data Cleaning",
+    name: "Processing",
+    phase: 2,
+    emphasis: "medium" as const,
+    description: "Data cleaning and transformation",
     tools: [
-      { name: "Python", description: "Primary scripting language" },
-      { name: "pandas", description: "Data manipulation and cleaning" },
-      { name: "Jupyter", description: "Interactive notebook environment" },
-    ],
+      { name: "Python", isPrimary: true },
+      { name: "pandas", isPrimary: false },
+    ]
   },
   {
-    title: "Statistical Analysis",
+    name: "Analysis",
+    phase: 3,
+    emphasis: "primary" as const,
+    description: "Statistical modeling and hypothesis testing",
     tools: [
-      { name: "R", description: "Statistical computing" },
-      { name: "dplyr", description: "Data transformation" },
-      { name: "MASS", description: "Ordinal regression" },
-      { name: "ggstatsplot", description: "Statistical visualization" },
-    ],
+      { name: "R", isPrimary: true },
+      { name: "dplyr", isPrimary: false },
+      { name: "MASS", isPrimary: false },
+    ]
   },
   {
-    title: "Visualization",
+    name: "Visualization",
+    phase: 4,
+    emphasis: "medium" as const,
+    description: "Interactive dashboards and publication graphics",
     tools: [
-      { name: "Tableau", description: "Interactive dashboards" },
-      { name: "ggplot2", description: "Grammar of graphics" },
-      { name: "corrplot", description: "Correlation matrices" },
-    ],
+      { name: "Tableau", isPrimary: true },
+      { name: "ggplot2", isPrimary: false },
+    ]
   },
 ];
 
@@ -42,84 +52,109 @@ export default function TechStack() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="tech-stack" className="relative py-32 overflow-hidden">
+    <section id="tech-stack" className="relative py-28 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-darker to-dark" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section Header */}
+      <div ref={ref} className="relative z-10 max-w-4xl mx-auto px-6">
+        {/* Section Header - Editorial */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.7 }}
+          className="mb-16"
         >
-          <span className="text-accent text-sm font-medium tracking-[0.3em] uppercase">
-            Tools & Technologies
+          <span className="text-white/40 text-xs font-medium tracking-[0.25em] uppercase block mb-5">
+            Research Toolkit
           </span>
-          <h2 className="text-4xl md:text-6xl font-bold font-[family-name:var(--font-playfair)] mt-4 mb-6">
-            <span className="text-gradient">Tech Stack</span>
+          <h2 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-playfair)] text-white mb-4">
+            Tech Stack
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            Free and open-source software powering our research - zero budget, maximum impact.
+          <p className="text-base text-white/45 max-w-md leading-relaxed">
+            A zero-cost toolkit assembled for rigorous film analysis.
           </p>
         </motion.div>
 
-        {/* Tech Categories */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {categories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
-              className="group"
-            >
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 hover:border-primary/30 transition-all duration-500">
-                <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-3">
-                  <span className="w-2 h-8 rounded-full bg-gradient-to-b from-primary to-accent" />
-                  {category.title}
-                </h3>
-                
-                <div className="space-y-4">
-                  {category.tools.map((tool, toolIndex) => (
-                    <motion.div
-                      key={tool.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.4, delay: 0.3 + categoryIndex * 0.1 + toolIndex * 0.05 }}
-                      whileHover={{ x: 10 }}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white/3 hover:bg-white/5 transition-colors cursor-default"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center border border-white/10">
-                        <span className="text-accent font-bold text-lg">
-                          {tool.name.charAt(0)}
-                        </span>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-white">{tool.name}</h4>
-                        <p className="text-sm text-white/40">{tool.description}</p>
-                      </div>
-                    </motion.div>
-                  ))}
+        {/* Pipeline Flow */}
+        <div className="space-y-4">
+          {categories.map((category, catIndex) => {
+            const topMargin = catIndex === 0 ? "" : 
+                             catIndex === 2 ? "mt-8" : 
+                             catIndex === 3 ? "mt-6" :
+                             "mt-4";
+            
+            const padding = category.emphasis === "primary" ? "py-6 px-5" :
+                           category.emphasis === "medium" ? "py-5 px-5" :
+                           "py-4 px-5";
+            
+            const isPrimary = category.emphasis === "primary";
+            
+            return (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: catIndex * 0.1 }}
+                className={topMargin}
+              >
+                <div 
+                  className={`${padding} rounded-lg border transition-colors duration-300 ${
+                    isPrimary 
+                      ? "border-primary/20 bg-primary/[0.02]" 
+                      : "border-white/[0.06] hover:border-white/10"
+                  }`}
+                >
+                  {/* Phase + Title */}
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="text-white/20 text-xs font-mono">
+                      {String(category.phase).padStart(2, '0')}
+                    </span>
+                    <h3 className={`text-base font-semibold tracking-wide ${
+                      isPrimary ? "text-accent" : "text-white/75"
+                    }`}>
+                      {category.name}
+                    </h3>
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-white/35 mb-3 ml-7">
+                    {category.description}
+                  </p>
+                  
+                  {/* Tools */}
+                  <div className="ml-7 flex flex-wrap gap-x-5 gap-y-1">
+                    {category.tools.map((tool) => (
+                      <span
+                        key={tool.name}
+                        className={`text-sm ${
+                          tool.isPrimary 
+                            ? "text-white/60 font-medium" 
+                            : "text-white/35"
+                        }`}
+                      >
+                        {tool.name}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Budget highlight */}
+        {/* Budget Note */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-12 pt-6 border-t border-white/[0.05]"
         >
-          <div className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30">
-            <span className="text-4xl font-bold text-gradient">$0</span>
-            <span className="text-white/60">Total project budget - powered by open-source</span>
-          </div>
+          <p className="text-sm text-white/25">
+            <span className="text-white/40">$0</span>
+            <span className="mx-2">—</span>
+            All tools are free and open-source
+          </p>
         </motion.div>
       </div>
     </section>
