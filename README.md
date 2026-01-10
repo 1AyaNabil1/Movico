@@ -1,14 +1,15 @@
 <div align="center">
 
 # Movico - Movie Survey Research
-Because sometimes, the right movie can light the stars inside you | [Website](https://www.swanexus.dev)
+Because sometimes, the right movie can light the stars inside you | [Website](https://movico.vercel.app/)
 
-
+<!--
 ![Movico](assets/branding/logo.png)
+-->
 
 </div>
 
-
+<br/>
 A multi-phase academic research project investigating movie genre preferences, viewing habits, and the factors that influence audience decisions. Built with Python for data cleaning and R for statistical analysis.
 
 ## Features
@@ -119,7 +120,7 @@ This project is for academic and research purposes.
 
 - **Built by**: [AyaNexus](https://ayanexus.dev/) 🦢
 - **GitHub Repository**: [Movico](https://github.com/1AyaNabil1/Movico)
-- **Live Demo**: [Movico](https://swanexus.dev)
+- **Live Demo**: [Movico](https://movico.vercel.app/)
 
 ---
 
