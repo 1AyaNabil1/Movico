@@ -7,8 +7,8 @@ const navItems = [
   { name: "Overview", href: "/overview" },
   { name: "Methodology", href: "/methodology" },
   { name: "Findings", href: "/findings" },
-  { name: "Phases", href: "/phases" },
   { name: "Tech Stack", href: "/tech-stack" },
+  { name: "Phases", href: "/phases" },
 ];
 
 export default function Navigation() {

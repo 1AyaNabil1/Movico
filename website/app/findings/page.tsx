@@ -7,36 +7,36 @@ import Footer from "@/components/Footer";
 import ParticleField from "@/components/ParticleField";
 
 const genres = [
-  { name: "Action", rating: 4.2, color: "#FA1E0E" },
-  { name: "Adventure", rating: 4.0, color: "#BD2000" },
-  { name: "Comedy", rating: 3.8, color: "#FFBE0F" },
-  { name: "Drama", rating: 3.5, color: "#8C0000" },
-  { name: "Horror", rating: 3.2, color: "#6a0000" },
-  { name: "Sci-Fi", rating: 4.1, color: "#FA1E0E" },
-  { name: "Romance", rating: 3.4, color: "#BD2000" },
-  { name: "Thriller", rating: 3.9, color: "#8C0000" },
+  { name: "Action", rating: 4.2, color: "#FA1E0E", emphasis: true },
+  { name: "Sci-Fi", rating: 4.1, color: "#FA1E0E", emphasis: true },
+  { name: "Adventure", rating: 4.0, color: "#BD2000", emphasis: false },
+  { name: "Thriller", rating: 3.9, color: "#8C0000", emphasis: false },
+  { name: "Comedy", rating: 3.8, color: "#FFBE0F", emphasis: false },
+  { name: "Drama", rating: 3.5, color: "#666666", emphasis: false },
+  { name: "Romance", rating: 3.4, color: "#666666", emphasis: false },
+  { name: "Horror", rating: 3.2, color: "#666666", emphasis: false },
 ];
 
 const keyFindings = [
   { 
     title: "Viewing Location", 
-    insight: "65% prefer home, 35% favor cinema",
-    detail: "Home viewers cite convenience and comfort, while cinema-goers value immersive experience."
+    insight: "Home viewing dominates at 65%, convenience and control outweigh the cinema's immersive pull.",
+    isPrimary: true
   },
   { 
-    title: "Genre Popularity", 
-    insight: "Action and Sci-Fi rank highest across all demographics",
-    detail: "Adventure and Comedy follow closely, with notable gender-based preference variations."
+    title: "Genre Hierarchy", 
+    insight: "Action and Sci-Fi lead decisively. Adventure and Comedy follow, but gender shapes preference intensity.",
+    isPrimary: true
   },
   { 
-    title: "Decision Factors", 
-    insight: "Story quality and reviews are primary drivers",
-    detail: "Advertisements have moderate influence, particularly for younger audiences."
+    title: "Decision Drivers", 
+    insight: "Story quality and peer reviews drive selection ads sway younger audiences, not seasoned viewers.",
+    isPrimary: false
   },
   { 
-    title: "Viewing Frequency", 
-    insight: "Average viewer watches 4-6 movies per month",
-    detail: "Weekly viewers tend to have broader genre preferences than occasional watchers."
+    title: "Viewing Cadence", 
+    insight: "The median viewer consumes 4/6 films monthly. Frequent watchers show broader taste.",
+    isPrimary: false
   },
 ];
 
@@ -49,158 +49,201 @@ export default function FindingsPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative h-screen overflow-hidden">
       {isMounted && <ParticleField />}
       <Navigation />
       
-      <main className="relative z-10 min-h-screen pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-8 py-8">
-          {/* Header */}
+      <main className="relative z-10 h-screen pt-20 pb-16 flex flex-col">
+        <div className="flex-shrink-0 max-w-5xl mx-auto px-6 pt-8">
+          {/* Header - Fixed */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
           >
-            <motion.span 
-              className="text-accent text-base font-medium tracking-[0.3em] uppercase inline-block"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Research Results
-            </motion.span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)] mt-4">
-              <motion.span 
-                className="text-gradient inline-block"
-                animate={{ 
-                  textShadow: [
-                    "0 0 20px rgba(140,0,0,0.3)",
-                    "0 0 40px rgba(140,0,0,0.6)",
-                    "0 0 20px rgba(140,0,0,0.3)"
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)]">
+              <span className="text-gradient">
                 Key Findings
-              </motion.span>
+              </span>
             </h1>
-            <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mt-4">
-              Discover the insights uncovered from our comprehensive survey analysis.
+            
+            {/* Decorative Glowy Line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100px" }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="h-px bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mt-6 mb-6"
+            />
+            
+            <p 
+              className="text-base text-white/60 max-w-2xl mx-auto leading-relaxed"
+              style={{ fontFamily: "'Times New Roman', Times, serif" }}
+            >
+              What three hundred respondents revealed about how we choose, watch, and value films.
             </p>
           </motion.div>
+        </div>
 
-          {/* Genre Ratings - Interactive Circles */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-16"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold text-center mb-10">Genre Preference Ratings</h3>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-              {genres.map((genre, index) => (
-                <motion.div
-                  key={genre.name}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
-                  whileHover={{ scale: 1.15, y: -10 }}
-                  onHoverStart={() => setHoveredGenre(genre.name)}
-                  onHoverEnd={() => setHoveredGenre(null)}
-                  className="relative group cursor-pointer"
-                >
-                  {/* Rating circle */}
-                  <div
-                    className="relative w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center border-4 transition-all duration-300"
-                    style={{
-                      borderColor: hoveredGenre === genre.name ? genre.color : "rgba(255,255,255,0.15)",
-                      boxShadow: hoveredGenre === genre.name ? `0 0 40px ${genre.color}60` : "none",
-                    }}
-                  >
+        {/* Scrollable Content */}
+        <div className="flex-1 relative overflow-hidden">
+          <div className="h-full overflow-y-auto px-6">
+            <div className="max-w-5xl mx-auto pb-16">
+              {/* Genre Ratings - Lighter, more curated feel */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-20 py-8"
+              >
+                <h3 className="text-lg md:text-xl font-semibold text-center mb-10 text-white/50">Genre Preferences</h3>
+                
+                {/* All genres in one row - flex wrap to show all */}
+                <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+                  {genres.map((genre, index) => (
+                    <motion.div
+                      key={genre.name}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4 }}
+                      whileHover={{ scale: 1.08, y: -5, transition: { duration: 0.2 } }}
+                      onHoverStart={() => setHoveredGenre(genre.name)}
+                      onHoverEnd={() => setHoveredGenre(null)}
+                      className="relative group cursor-pointer"
+                    >
+                      {/* Rating circle with glow */}
+                      <div
+                        className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-all duration-300"
+                        style={{
+                          boxShadow: genre.emphasis 
+                            ? `0 0 30px ${genre.color}60, 0 0 15px ${genre.color}30` 
+                            : "none",
+                        }}
+                      >
                     {/* Progress ring */}
                     <svg className="absolute inset-0 w-full h-full -rotate-90">
                       <circle
                         cx="50%"
                         cy="50%"
-                        r="42%"
+                        r="45%"
                         fill="none"
-                        stroke="rgba(255,255,255,0.05)"
-                        strokeWidth="4"
+                        stroke="rgba(255,255,255,0.08)"
+                        strokeWidth="3"
                       />
                       <motion.circle
                         cx="50%"
                         cy="50%"
-                        r="42%"
+                        r="45%"
                         fill="none"
-                        stroke={genre.color}
-                        strokeWidth="4"
+                        stroke={genre.emphasis ? genre.color : "rgba(255,255,255,0.25)"}
+                        strokeWidth="3"
                         strokeLinecap="round"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: genre.rating / 5 }}
-                        transition={{ duration: 1.5, delay: 0.5 + index * 0.1 }}
+                        transition={{ duration: 1.2 }}
                       />
                     </svg>
                     
-                    <div className="text-center">
-                      <span className="text-2xl md:text-3xl font-bold" style={{ color: genre.color }}>
+                    <div className="text-center relative z-10">
+                      <span 
+                        className="text-xl md:text-2xl font-bold"
+                        style={{ color: genre.emphasis ? genre.color : "rgba(255,255,255,0.7)" }}
+                      >
                         {genre.rating}
                       </span>
-                      <span className="text-white/30 text-sm">/5</span>
+                      <span className="text-white/20 text-xs">/5</span>
                     </div>
                   </div>
                   
-                  <p className="text-center mt-3 text-base text-white/60 group-hover:text-white transition-colors">
-                    {genre.name}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Key Findings Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {keyFindings.map((finding, index) => (
-              <motion.div
-                key={finding.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.02,
-                  borderColor: "rgba(140,0,0,0.5)",
-                  boxShadow: "0 0 40px rgba(140,0,0,0.2)"
-                }}
-                className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 transition-all duration-300 overflow-hidden"
-              >
-                {/* Glow effect on hover */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
-                
-                <div className="relative z-10">
-                  <motion.span 
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-lg font-bold mb-4 inline-flex"
-                    animate={{ 
-                      boxShadow: [
-                        "0 0 10px rgba(140,0,0,0.3)",
-                        "0 0 20px rgba(140,0,0,0.6)",
-                        "0 0 10px rgba(140,0,0,0.3)"
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                  >
-                    {index + 1}
-                  </motion.span>
-                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-accent transition-colors">
-                    {finding.title}
-                  </h3>
-                  <p className="text-accent text-lg mt-2 font-medium">{finding.insight}</p>
-                  <p className="text-white/50 text-base mt-2">{finding.detail}</p>
+                      <p 
+                        className="text-center mt-3 text-sm text-white/50 group-hover:text-white/80 transition-colors"
+                        style={{ fontFamily: "'Times New Roman', Times, serif" }}
+                      >
+                        {genre.name}
+                      </p>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            ))}
+
+              {/* Key Insights - Uniform cards */}
+              <div>
+                <h3 className="text-lg md:text-xl font-semibold text-center mb-10 text-white/50">Key Insights</h3>
+                
+                <div className="space-y-8 max-w-3xl mx-auto">
+                  {keyFindings.map((finding, index) => (
+                    <motion.article
+                      key={finding.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="relative group"
+                    >
+                      <div className="flex items-baseline gap-6">
+                        <span 
+                          className="text-white/30 text-sm font-medium tracking-wider flex-shrink-0"
+                          style={{ fontFamily: "'Times New Roman', Times, serif" }}
+                        >
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <div className="flex-1">
+                          <h3 
+                            className="text-xl md:text-2xl font-bold text-white/90 mb-3 leading-tight"
+                            style={{ fontFamily: "'Times New Roman', Times, serif" }}
+                          >
+                            {finding.title}
+                          </h3>
+                          <p 
+                            className="text-white/65 text-base md:text-lg leading-loose max-w-xl"
+                            style={{ fontFamily: "'Times New Roman', Times, serif", lineHeight: "1.8" }}
+                          >
+                            {finding.insight}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        
+        {/* Left Arrow - Center Left */}
+        <motion.a
+          href="/methodology"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="fixed left-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+        >
+          <motion.div
+            animate={{ x: [0, -5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.div>
+        </motion.a>
+
+        {/* Right Arrow - Center Right */}
+        <motion.a
+          href="/tech-stack"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="fixed right-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+        >
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.div>
+        </motion.a>
         
         <Footer />
       </main>
