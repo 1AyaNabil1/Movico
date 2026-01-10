@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-auto md:h-screen md:overflow-hidden">
       {/* Animated Background Elements */}
       {isMounted && <ParticleField />}
 

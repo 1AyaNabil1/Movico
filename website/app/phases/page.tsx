@@ -7,12 +7,42 @@ import Footer from "@/components/Footer";
 import ParticleField from "@/components/ParticleField";
 
 const phases = [
-  { number: 1, title: "Research Proposal", description: "Defined objectives, scope, and methodology framework for the comprehensive movie preference study." },
-  { number: 2, title: "Questionnaire Design", description: "Created survey with validated measurement scales covering demographics, preferences, and behaviors." },
-  { number: 3, title: "Sampling & Pretest", description: "Established sampling strategy targeting diverse demographics and conducted preliminary testing." },
-  { number: 4, title: "Data Collection", description: "Gathered 300+ responses through strategic online distribution across multiple channels." },
-  { number: 5, title: "Data Analysis", description: "Applied rigorous statistical methods including Chi-square tests and ordinal regression." },
-  { number: 6, title: "Final Report", description: "Compiled findings into comprehensive documentation with actionable insights and visualizations." },
+  {
+    number: 1,
+    title: "Research Proposal",
+    description: "Defined objectives, scope, and methodology framework for the comprehensive movie preference study.",
+    emphasis: "foundation"
+  },
+  {
+    number: 2,
+    title: "Questionnaire Design",
+    description: "Created survey with validated measurement scales covering demographics, preferences, and behaviors.",
+    emphasis: "foundation"
+  },
+  {
+    number: 3,
+    title: "Sampling & Pretest",
+    description: "Established sampling strategy targeting diverse demographics and conducted preliminary testing.",
+    emphasis: "standard"
+  },
+  {
+    number: 4,
+    title: "Data Collection",
+    description: "Gathered 300+ responses through strategic online distribution across multiple channels.",
+    emphasis: "standard"
+  },
+  {
+    number: 5,
+    title: "Data Analysis",
+    description: "Applied rigorous statistical methods including Chi-square tests and ordinal regression.",
+    emphasis: "highlight"
+  },
+  {
+    number: 6,
+    title: "Final Report",
+    description: "Compiled findings into comprehensive documentation with actionable insights and visualizations.",
+    emphasis: "conclusion"
+  },
 ];
 
 export default function PhasesPage() {
@@ -23,125 +53,120 @@ export default function PhasesPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-auto md:h-screen md:overflow-hidden">
       {isMounted && <ParticleField />}
       <Navigation />
-      
-      <main className="relative z-10 min-h-screen pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-8 py-8">
-          {/* Header */}
+
+      <main className="relative z-10 min-h-screen md:h-screen pt-24 md:pt-20 pb-8 md:pb-16 flex flex-col">
+        <div className="flex-shrink-0 max-w-5xl mx-auto px-4 md:px-6 pt-4 md:pt-8">
+          {/* Header - Matching other pages */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <motion.span 
-              className="text-accent text-base font-medium tracking-[0.3em] uppercase inline-block"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Project Timeline
-            </motion.span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)] mt-4">
-              <motion.span 
-                className="text-gradient inline-block"
-                animate={{ 
-                  textShadow: [
-                    "0 0 20px rgba(140,0,0,0.3)",
-                    "0 0 40px rgba(140,0,0,0.6)",
-                    "0 0 20px rgba(140,0,0,0.3)"
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-playfair)]">
+              <span className="text-gradient">
                 Research Phases
-              </motion.span>
+              </span>
             </h1>
-          </motion.div>
 
-          {/* Phases Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {phases.map((phase, index) => (
-              <motion.div
-                key={phase.number}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.03,
-                  borderColor: "rgba(140,0,0,0.5)",
-                  boxShadow: "0 0 40px rgba(140,0,0,0.2)"
-                }}
-                className="group p-8 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <motion.span 
-                    className="text-accent text-lg font-bold tracking-widest"
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                  >
-                    PHASE {phase.number}
-                  </motion.span>
-                  <motion.span 
-                    className="w-4 h-4 rounded-full bg-green-500"
-                    animate={{ 
-                      boxShadow: [
-                        "0 0 5px rgba(34,197,94,0.5)",
-                        "0 0 15px rgba(34,197,94,0.8)",
-                        "0 0 5px rgba(34,197,94,0.5)"
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.15 }}
-                  />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-accent transition-colors">
-                  {phase.title}
-                </h3>
-                <p className="text-white/50 text-base md:text-lg mt-3 leading-relaxed">
-                  {phase.description}
-                </p>
-                <motion.div 
-                  className="w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent mt-6 rounded-full"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                  style={{ transformOrigin: "left" }}
-                />
-              </motion.div>
-            ))}
-          </div>
+            {/* Decorative Glowy Line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100px" }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="h-px bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mt-6 mb-6"
+            />
 
-          {/* Progress bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="max-w-2xl mx-auto"
-          >
-            <div className="flex items-center justify-between text-base text-white/60 mb-3">
-              <span>Project Progress</span>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                className="text-accent font-bold"
-              >
-                100% Complete
-              </motion.span>
-            </div>
-            <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 2, delay: 1 }}
-                className="h-full rounded-full bg-gradient-to-r from-primary via-secondary to-accent"
-                style={{ boxShadow: "0 0 20px rgba(140,0,0,0.5)" }}
-              />
-            </div>
+            <p
+              className="text-base text-white/60 max-w-2xl mx-auto leading-relaxed"
+              style={{ fontFamily: "'Times New Roman', Times, serif" }}
+            >
+              A six-phase journey from initial concept to final insights, documenting how the research evolved.
+            </p>
           </motion.div>
         </div>
-        
+
+        {/* Timeline Content */}
+        <div className="flex-1 px-4 md:px-6 flex items-start md:items-center py-4 md:py-0">
+          <div className="max-w-5xl mx-auto w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-12 md:gap-y-8">
+              {phases.map((phase, index) => {
+                // Vary emphasis based on phase position
+                const isFoundation = phase.emphasis === "foundation";
+                const isHighlight = phase.emphasis === "highlight";
+                const isConclusion = phase.emphasis === "conclusion";
+
+                // Vary spacing - earlier phases slightly tighter
+                const extraSpacing = index >= 4 ? "lg:mt-2" : "";
+
+                return (
+                  <motion.div
+                    key={phase.number}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.15 + index * 0.08 }}
+                    className={`${extraSpacing}`}
+                  >
+                    {/* Phase number and status */}
+                    <div className="flex items-center gap-3 mb-2">
+                      <span
+                        className={`text-base font-medium tracking-wider ${isHighlight ? "text-accent" : "text-white/30"
+                          }`}
+                        style={{ fontFamily: "'Times New Roman', Times, serif" }}
+                      >
+                        {String(phase.number).padStart(2, '0')}
+                      </span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className={`text-xl font-semibold mb-2 ${isHighlight ? "text-accent" :
+                      isConclusion ? "text-white/90" :
+                        isFoundation ? "text-white/70" :
+                          "text-white/80"
+                      }`}>
+                      {phase.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      className="text-base text-white/45 leading-relaxed"
+                      style={{ fontFamily: "'Times New Roman', Times, serif", lineHeight: "1.7" }}
+                    >
+                      {phase.description}
+                    </p>
+
+                    {/* Subtle divider - quieter */}
+                    <div className={`mt-4 h-px w-12 ${isHighlight ? "bg-accent/30" : "bg-white/[0.06]"
+                      }`} />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Left Arrow - Hidden on mobile */}
+        <motion.a
+          href="/tech-stack"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="hidden sm:block fixed left-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+        >
+          <motion.div
+            animate={{ x: [0, -5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.div>
+        </motion.a>
+
         <Footer />
       </main>
     </div>
