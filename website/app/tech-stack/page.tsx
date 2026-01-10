@@ -102,12 +102,12 @@ export default function TechStackPage() {
   }, []);
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-auto md:h-screen md:overflow-hidden">
       {isMounted && <ParticleField />}
       <Navigation />
 
-      <main className="relative z-10 h-screen pt-20 pb-16 flex flex-col">
-        <div className="flex-shrink-0 max-w-5xl mx-auto px-6 pt-8">
+      <main className="relative z-10 min-h-screen md:h-screen pt-24 md:pt-20 pb-8 md:pb-16 flex flex-col">
+        <div className="flex-shrink-0 max-w-5xl mx-auto px-4 md:px-6 pt-4 md:pt-8">
           {/* Header - Matching other pages */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -115,7 +115,7 @@ export default function TechStackPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-10"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-playfair)]">
               <span className="text-gradient">
                 Tech Stack
               </span>
@@ -138,15 +138,15 @@ export default function TechStackPage() {
           </motion.div>
         </div>
 
-        {/* 2x2 Grid Layout - No scrolling */}
-        <div className="flex-1 px-6 flex items-center justify-center">
+        {/* Grid Layout - responsive */}
+        <div className="flex-1 px-4 md:px-6 flex items-start md:items-center justify-center py-4 md:py-0">
           <div className="max-w-5xl mx-auto w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12 justify-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-12">
               {categories.map((category, catIndex) => {
                 const isPrimary = category.emphasis === "primary";
 
                 return (
-                  <div key={category.name} className="flex flex-col items-center text-center">
+                  <div key={category.name} className="flex flex-col items-center md:items-center text-center">
                     {/* Phase indicator + Title */}
                     <div className="flex items-baseline justify-center gap-3 mb-2">
                       <span
@@ -212,13 +212,13 @@ export default function TechStackPage() {
           </div>
         </div>
 
-        {/* Left Arrow - Center Left */}
+        {/* Left Arrow - Hidden on mobile */}
         <motion.a
           href="/findings"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="fixed left-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+          className="hidden sm:block fixed left-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
         >
           <motion.div
             animate={{ x: [0, -5, 0] }}
@@ -230,13 +230,13 @@ export default function TechStackPage() {
           </motion.div>
         </motion.a>
 
-        {/* Right Arrow - Center Right */}
+        {/* Right Arrow - Hidden on mobile */}
         <motion.a
           href="/phases"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="fixed right-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+          className="hidden sm:block fixed right-6 top-1/2 -translate-y-1/2 z-20 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
         >
           <motion.div
             animate={{ x: [0, 5, 0] }}
